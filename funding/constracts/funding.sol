@@ -2,7 +2,7 @@ pragma solidity ^0.4.24;
 
 //01.实现构造函数并测试成功
 contract CrowFunding{
-    address public manager; //项目发起人，负责创建合约、花费申请、花费执行
+    address public creator; //项目发起人，负责创建合约、花费申请、花费执行
     string public  fundingName;//众筹项目名称
     uint  public supportBalance; //众筹支持金额
     uint public targetBalance; //众筹项目目标筹集金额
@@ -11,9 +11,9 @@ contract CrowFunding{
     mapping(address => bool) public investorExistMap;//标记一个人是否参与了当前众筹
 
 
-constructor(string _fundingName,uint _supportBalance,uint _targetBalance,uint _endTime)public{
+constructor(string _fundingName,uint _supportBalance,uint _targetBalance,uint _endTime,adderss _creator)public{
 
-      manager=msg.sender;
+      creator=_creator;
       fundingName=_fundingName;
       supportBalance=_supportBalance;
       targetBalance= _targetBalance;
