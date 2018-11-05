@@ -22,5 +22,14 @@ pragma solidity ^0.4.24;
         creatorFundingMap[msg.sender].push(fundingAddress);
     }
 
+    //03.辅助函数
+        //返回该众筹平台所有的合约
+function getAllFunding () public returns(address[]){
+    return crowFundingArray;
+}
+   //返回当前账户所创建的所有合约
+   function getCreatorFunding ()public returns(address[]){
+       return creatorFundingMap[msg.sender];
+   }
 
 }
