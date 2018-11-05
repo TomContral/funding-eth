@@ -1,5 +1,5 @@
 pragma solidity ^0.4.24;
-
+   import './fundingFactroy.sol';
 //01.实现构造函数并测试成功
 contract CrowFunding{
     address public creator; //项目发起人，负责创建合约、花费申请、花费执行
@@ -9,15 +9,17 @@ contract CrowFunding{
     uint public  endTime;     //众筹截止日期，到此时间时若筹不齐金额则众筹失败
     address []public investors ;//参与众筹的ren
     mapping(address => bool) public investorExistMap;//标记一个人是否参与了当前众筹
+    InvestorToFunding investorToFunding;    //添加一个变量，默认i2为0x00000000000000000，必须实例化才可使用
 
 
-constructor(string _fundingName,uint _supportBalance,uint _targetBalance,uint _endTime,address _creator)public{
+constructor(string _fundingName,uint _supportBalance,uint _targetBalance,uint _endTime,address _creator,InvestorToFunding _investorToFunding)public{
 
       creator=_creator;
       fundingName=_fundingName;
       supportBalance=_supportBalance;
       targetBalance= _targetBalance;
       endTime= now+_endTime;
+      investorToFunding=_investorToFunding;
 
 }
 //02.添加投资方法invest以及相关属性
@@ -25,6 +27,7 @@ constructor(string _fundingName,uint _supportBalance,uint _targetBalance,uint _e
        require (msg.value==supportBalance);//if 传递的数值等于众筹支持金额
        investors.push(msg.sender);   //把支持者添加进数组中
        investorExistMap[msg.sender]=true;  //在map中将该支持者标记为ture
+       investorToFunding.joinFunding(msg.sender,this);//调用添加方法，添加到mapping结构中
    }
 
 //03.完成退款及两个辅助函数
@@ -95,7 +98,7 @@ constructor(string _fundingName,uint _supportBalance,uint _targetBalance,uint _e
  }
  //权限控制
    modifier onlyManager(){
-     require(msg.sender==manager);
+     require(msg.sender==creator);
        _;
    }
 
@@ -125,6 +128,5 @@ function getInvestorsCount() public view returns (uint) {
     }
 
 }
-
 
 
