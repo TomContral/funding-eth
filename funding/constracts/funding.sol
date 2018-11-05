@@ -11,7 +11,7 @@ contract CrowFunding{
     mapping(address => bool) public investorExistMap;//标记一个人是否参与了当前众筹
 
 
-constructor(string _fundingName,uint _supportBalance,uint _targetBalance,uint _endTime,adderss _creator)public{
+constructor(string _fundingName,uint _supportBalance,uint _targetBalance,uint _endTime,address _creator)public{
 
       creator=_creator;
       fundingName=_fundingName;

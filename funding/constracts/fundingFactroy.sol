@@ -14,7 +14,7 @@ pragma solidity ^0.4.24;
    //02.创建新的合约
      function createFunding(string _fundingName,uint _supportBalance,uint _targetBalance,uint _endTime) public {
         //a. 创建一个新合约
-        address fundingAddress = new CrowFunding(_fundingName,_supportBalance,_targetBalance,_endTime);
+        address fundingAddress = new CrowFunding(_fundingName,_supportBalance,_targetBalance,_endTime,msg.sender);
         //b. 添加到合约集合中
         crowFundingArray.push(fundingAddress);
 
