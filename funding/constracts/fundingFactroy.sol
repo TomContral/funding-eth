@@ -33,3 +33,19 @@ function getAllFunding () public returns(address[]){
    }
 
 }
+   //我参与的合约
+    contract InvestorToFunding{
+    mapping(address=>address[]) InvestorToFundingMap;
+   //添加指定参与人所参与的数组
+
+    function joinFunding (address inverstor,address fundingAddress)public{
+        InvestorToFundingMap[inverstor].push(fundingAddress);
+    }
+    //返回指定参与人所参与的合约数组
+    function getFundingBy (address inverstor)public view returns(address[]){
+       return  InvestorToFundingMap[inverstor];
+
+    }
+
+
+}
